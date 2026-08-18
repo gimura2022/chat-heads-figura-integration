@@ -14,7 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.entity.player.Player;
 
 @Mixin(ChatHeads.class)
 public final class ChatHeadsMixin {
@@ -40,9 +40,9 @@ public final class ChatHeadsMixin {
         if (avatar == null)
             return;
 
-        Level level = Minecraft.getInstance().level;
+        Player player = Minecraft.getInstance().level.getPlayerByUUID(owner.getProfile().getId());
 
-        if (level == null)
+        if (player == null)
             return;
 
         ((ChatHeadsFiguraIntegrationAvatar) avatar).chatHeadsFiguraIntegration$submitPortraitDrawWithOpacity(
@@ -51,7 +51,7 @@ public final class ChatHeadsMixin {
             x, y,
             PORTRAIT_SIZE,
             16f,
-            LivingEntityRenderer.isEntityUpsideDown(level.getPlayerByUUID(owner.getProfile().getId())),
+            LivingEntityRenderer.isEntityUpsideDown(player),
             opacity
         );
 
