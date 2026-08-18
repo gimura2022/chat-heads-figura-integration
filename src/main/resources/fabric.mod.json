@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "chat-heads-figura-integration",
+	"version": "${version}",
+	"name": "Chat Heads Figura Integration",
+	"description": "Simple mod that integrates figura avatar head rendering and chat heads mod.",
+	"authors": [
+		"_g1mura_"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/chat-heads-figura-integration/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": []
+	},
+	"mixins": [
+		"chat-heads-figura-integration.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~1.21.8",
+		"java": ">=21",
+		"fabric-api": "*",
+		"chat_heads": ">=0.14.2",
+		"figura": ">=0.1.5"
+	}
+}
