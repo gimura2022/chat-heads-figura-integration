@@ -24,7 +24,7 @@ public final class GameRendererMixin {
             target = "Lnet/minecraft/client/gui/render/GuiRenderer;<init>(Lnet/minecraft/client/gui/render/state/GuiRenderState;Lnet/minecraft/client/renderer/MultiBufferSource$BufferSource;Ljava/util/List;)V"
         )
     )
-    private List<PictureInPictureRenderer<?>> addPortraitRenderer(List<PictureInPictureRenderer<?>> list, @Local MultiBufferSource.BufferSource source) {
+    private List<PictureInPictureRenderer<?>> addPortraitRendererWithOpacity(List<PictureInPictureRenderer<?>> list, @Local MultiBufferSource.BufferSource source) {
         List<PictureInPictureRenderer<?>> newList = new ArrayList<>(list);
 
         newList.add(new FiguraPortraitRendererWithOpacity(source));
