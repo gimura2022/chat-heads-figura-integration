@@ -11,7 +11,7 @@
 		"homepage": "https://github.com/gimura2022/chat-heads-figura-integration",
 		"sources": "https://github.com/gimura2022/chat-heads-figura-integration"
 	},
-	"license": "BSD0",
+	"license": "0BSD",
 	"icon": "assets/chat-heads-figura-integration/icon.png",
 	"environment": "client",
 	"entrypoints": {
