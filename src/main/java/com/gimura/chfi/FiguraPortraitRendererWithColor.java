@@ -10,8 +10,7 @@ import org.figuramc.figura.utils.ui.UIHelper;
 
 import com.mojang.blaze3d.ProjectionType;
 import com.mojang.blaze3d.opengl.GlStateManager;
-import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.systems.GpuDevice;
+import com.mojang.blaze3d.platform.Lighting; import com.mojang.blaze3d.systems.GpuDevice;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.textures.FilterMode;
 import com.mojang.blaze3d.textures.GpuTexture;
@@ -30,7 +29,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.ResourceLocation;
 
-public final class FiguraPortraitRendererWithOpacity extends PictureInPictureRenderer<FiguraPortraitRenderStateWithOpacity> {
+public final class FiguraPortraitRendererWithColor extends PictureInPictureRenderer<FiguraPortraitRenderStateWithColor> {
     private final CachedOrthoProjectionMatrixBuffer avatarProjectionMatrixBuffer = new CachedOrthoProjectionMatrixBuffer(
         "Portrait-PIP - " + this.getClass().getSimpleName(), -1000.0F, 1000.0F, true
     );
@@ -39,28 +38,27 @@ public final class FiguraPortraitRendererWithOpacity extends PictureInPictureRen
 
     private boolean renderSkin;
 
-    public FiguraPortraitRendererWithOpacity(MultiBufferSource.BufferSource bufferSource) {
+    public FiguraPortraitRendererWithColor(MultiBufferSource.BufferSource bufferSource) {
         super(bufferSource);
     }
 
     @Override
-    public Class<FiguraPortraitRenderStateWithOpacity> getRenderStateClass() {
-        return FiguraPortraitRenderStateWithOpacity.class;
+    public Class<FiguraPortraitRenderStateWithColor> getRenderStateClass() {
+        return FiguraPortraitRenderStateWithColor.class;
     }
 
     @Override
-    protected void renderToTexture(FiguraPortraitRenderStateWithOpacity portraitState, PoseStack poseStack) {
+    protected void renderToTexture(FiguraPortraitRenderStateWithColor portraitState, PoseStack poseStack) {
         Minecraft.getInstance().gameRenderer.getLighting().setupFor(Lighting.Entry.ITEMS_FLAT);
 
         Avatar avatar = portraitState.avatar();
         if (avatar != null) {
-            renderSkin = !((ChatHeadsFiguraIntegrationAvatar) avatar).chatHeadsFiguraIntegration$renderHeadForPortraitWithOpacity(
+            renderSkin = !avatar.renderHeadForPortrait(
                 this.bufferSource,
                 poseStack,
                 LightTexture.FULL_BRIGHT,
                 portraitState.modelScale(),
-                portraitState.upsideDown(),
-                portraitState.opacity()
+                portraitState.upsideDown()
             );
         } else {
             renderSkin = true;
@@ -68,7 +66,7 @@ public final class FiguraPortraitRendererWithOpacity extends PictureInPictureRen
     }
 
     @Override
-    public void prepare(FiguraPortraitRenderStateWithOpacity pictureInPictureRenderState, GuiRenderState guiRenderState, int i) {
+    public void prepare(FiguraPortraitRenderStateWithColor pictureInPictureRenderState, GuiRenderState guiRenderState, int i) {
         int j = (pictureInPictureRenderState.x1() - pictureInPictureRenderState.x0()) * i;
         int k = (pictureInPictureRenderState.y1() - pictureInPictureRenderState.y0()) * i;
         if (pictureInPictureRenderState.avatar() != null) {
@@ -121,7 +119,7 @@ public final class FiguraPortraitRendererWithOpacity extends PictureInPictureRen
     }
 
     @Override
-    protected void blitTexture(FiguraPortraitRenderStateWithOpacity pictureInPictureRenderState, GuiRenderState guiRenderState) {
+    protected void blitTexture(FiguraPortraitRenderStateWithColor pictureInPictureRenderState, GuiRenderState guiRenderState) {
         if (!renderSkin){
             TextureEntry entry = avatarToTexture.get(pictureInPictureRenderState.avatar());
 
@@ -138,7 +136,7 @@ public final class FiguraPortraitRendererWithOpacity extends PictureInPictureRen
                     1.0F,
                     1.0F,
                     0.0F,
-                    -1,
+                    pictureInPictureRenderState.color(),
                     pictureInPictureRenderState.scissorArea(),
                     null
                 )
@@ -164,7 +162,7 @@ public final class FiguraPortraitRendererWithOpacity extends PictureInPictureRen
                     16/64.0F,
                     8/64F,
                     16/64.0F,
-                    -1,
+                    pictureInPictureRenderState.color(),
                     pictureInPictureRenderState.scissorArea(),
                     null
                 )
@@ -185,7 +183,7 @@ public final class FiguraPortraitRendererWithOpacity extends PictureInPictureRen
                     48/64.0F,
                     8/64F,
                     16/64.0F,
-                    -1,
+                    pictureInPictureRenderState.color(),
                     pictureInPictureRenderState.scissorArea(),
                     null
                 )
@@ -206,7 +204,7 @@ public final class FiguraPortraitRendererWithOpacity extends PictureInPictureRen
                     1,
                     0,
                     1,
-                    -1,
+                    pictureInPictureRenderState.color(),
                     pictureInPictureRenderState.scissorArea(),
                     null
                 )

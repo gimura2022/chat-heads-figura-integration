@@ -7,7 +7,7 @@ import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.gui.render.state.pip.PictureInPictureRenderState;
 import net.minecraft.resources.ResourceLocation;
 
-public final record FiguraPortraitRenderStateWithOpacity(
+public final record FiguraPortraitRenderStateWithColor(
     @Nullable Avatar avatar,
     @Nullable ResourceLocation fallbackSkin,
     float modelScale,
@@ -17,11 +17,11 @@ public final record FiguraPortraitRenderStateWithOpacity(
     int x1,
     int y1,
     float scale,
-    float opacity,
+    int color,
     @Nullable ScreenRectangle scissorArea,
     @Nullable ScreenRectangle bounds
 ) implements PictureInPictureRenderState {
-    public FiguraPortraitRenderStateWithOpacity(
+    public FiguraPortraitRenderStateWithColor(
         @Nullable Avatar avatar,
         @Nullable ResourceLocation fallbackSkin,
         float modelScale,
@@ -31,7 +31,7 @@ public final record FiguraPortraitRenderStateWithOpacity(
         int x1,
         int y1,
         float scale,
-        float opacity,
+        int color,
         @Nullable ScreenRectangle screenRectangle
     ) {
         this(
@@ -42,7 +42,7 @@ public final record FiguraPortraitRenderStateWithOpacity(
             x0, y0,
             x1, y1,
             scale,
-            opacity,
+            color,
             screenRectangle,
             PictureInPictureRenderState.getBounds(x0, y0, x1, y1, screenRectangle)
         );

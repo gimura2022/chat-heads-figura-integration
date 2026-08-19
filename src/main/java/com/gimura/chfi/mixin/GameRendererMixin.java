@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import com.gimura.chfi.FiguraPortraitRendererWithOpacity;
+import com.gimura.chfi.FiguraPortraitRendererWithColor;
 import com.llamalad7.mixinextras.sugar.Local;
 
 import net.minecraft.client.gui.render.pip.PictureInPictureRenderer;
@@ -24,10 +24,10 @@ public final class GameRendererMixin {
             target = "Lnet/minecraft/client/gui/render/GuiRenderer;<init>(Lnet/minecraft/client/gui/render/state/GuiRenderState;Lnet/minecraft/client/renderer/MultiBufferSource$BufferSource;Ljava/util/List;)V"
         )
     )
-    private List<PictureInPictureRenderer<?>> addPortraitRendererWithOpacity(List<PictureInPictureRenderer<?>> list, @Local MultiBufferSource.BufferSource source) {
+    private List<PictureInPictureRenderer<?>> addPortraitRendererWithColor(List<PictureInPictureRenderer<?>> list, @Local MultiBufferSource.BufferSource source) {
         List<PictureInPictureRenderer<?>> newList = new ArrayList<>(list);
 
-        newList.add(new FiguraPortraitRendererWithOpacity(source));
+        newList.add(new FiguraPortraitRendererWithColor(source));
 
         return newList;
     }

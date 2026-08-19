@@ -19,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 @Mixin(ChatHeads.class)
 public final class ChatHeadsMixin {
     private static final int PORTRAIT_SIZE = 8;
+    private static final int SHADOW_COLOR = 0x3d3d3d;
 
     @Inject(
         method = "renderChatHead(Lnet/minecraft/client/gui/GuiGraphics;IILnet/minecraft/client/multiplayer/PlayerInfo;FZ)V",
@@ -45,14 +46,26 @@ public final class ChatHeadsMixin {
         if (player == null)
             return;
 
-        ((ChatHeadsFiguraIntegrationAvatar) avatar).chatHeadsFiguraIntegration$submitPortraitDrawWithOpacity(
+        if (shadow) {
+            ((ChatHeadsFiguraIntegrationAvatar) avatar).chatHeadsFiguraIntegration$submitPortraitDrawWithColor(
+                graphics,
+                null,
+                x, y,
+                PORTRAIT_SIZE,
+                16f,
+                LivingEntityRenderer.isEntityUpsideDown(player),
+                SHADOW_COLOR | ((int) (opacity * 255f)) << 24
+            );
+        }
+
+        ((ChatHeadsFiguraIntegrationAvatar) avatar).chatHeadsFiguraIntegration$submitPortraitDrawWithColor(
             graphics,
             null,
-            x, y,
+            x - 1, y - 1,
             PORTRAIT_SIZE,
             16f,
             LivingEntityRenderer.isEntityUpsideDown(player),
-            opacity
+            0xffffff | ((int) (opacity * 255f)) << 24
         );
 
         callbackInfo.cancel();
