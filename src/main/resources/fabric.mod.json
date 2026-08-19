@@ -8,8 +8,8 @@
 		"_g1mura_"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/gimura2022/chat-heads-figura-integration",
+		"sources": "https://github.com/gimura2022/chat-heads-figura-integration"
 	},
 	"license": "BSD0",
 	"icon": "assets/chat-heads-figura-integration/icon.png",
